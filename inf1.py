@@ -86,8 +86,9 @@ while True:
     if avg * 1.05 < pyupbit.get_current_price("KRW-ETH") and upbit.get_balance("KRW-ETH") > 0.0001 and avg != 0:
         order = pyupbit.get_orderbook("KRW-ETH")
         bid1 = order[0]['orderbook_units'][0]['ask_price'] #리스트 내의 딕셔너리에 접근
+        balance = upbit.get_balance("KRW-ETH")
 
-        sell_ret = upbit.sell_limit_order("KRW-ETH", bid1, upbit.get_balance("KRW-ETH"))
+        sell_ret = upbit.sell_limit_order("KRW-ETH", bid1, balance)
 
         time.sleep(180)
 
@@ -99,16 +100,16 @@ while True:
         # 매도 주문 체결
         elif upbit.get_order("KRW-ETH") == []:
             post_message(f"[ETH inf][매도] {sell_ret['market']} {sell_ret['price']}")
-            after_krw = upbit.get_balance("KRW")
 
-            if after_krw > before_krw:
+            if bid1 > avg:
                 결과 = "이득"
             else:
                 결과 = "손해"
         
-            수익률 = after_krw / before_krw * 100 - 100
+            수익률 = bid1 / avg * 100 - 100
+            잔고 = upbit.get_balance("KRW")
 
-            post_message(f"[ETH inf][{결과}] {수익률 : .3f} %\n변화 : {after_krw - before_krw : .3f}\n잔고 : {after_krw : .3f}")
+            post_message(f"[ETH inf][{결과}] {수익률 : .3f} %\n변화 : {(bid1 - avg) * balance : .3f}\n잔고 : {잔고 : .3f}")
             fin = True
 
 
