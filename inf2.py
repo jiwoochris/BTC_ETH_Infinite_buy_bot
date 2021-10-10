@@ -244,4 +244,11 @@ async def main():
         coro2
         )
 
-asyncio.run(main())
+try:
+    asyncio.run(main())
+
+except Exception as e:
+    # panic and halt the execution in case of any other error
+    post_message(f"[INF][error]{type(e).__name__}\n{str(e)}")
+    print(type(e).__name__, str(e))
+    sys.exit()
