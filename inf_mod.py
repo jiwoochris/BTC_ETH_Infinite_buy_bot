@@ -277,10 +277,10 @@ def run():
 
     def update_state(BTC_count, BTC_avg, ETH_count, ETH_avg):
         with open("coin_state.txt", "w") as f:
-            f.write(BTC_count + "\n")
-            f.write(BTC_avg + "\n")
-            f.write(ETH_count + "\n")
-            f.write(ETH_avg + "\n")
+            f.write(str(BTC_count) + "\n")
+            f.write(str(BTC_avg) + "\n")
+            f.write(str(ETH_count) + "\n")
+            f.write(str(ETH_avg) + "\n")
 
     
 
