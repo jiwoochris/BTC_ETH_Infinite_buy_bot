@@ -9,6 +9,8 @@ import urllib3
 def run():
     
     async def BTC():
+        global BTC_count, BTC_avg, ETH_count, ETH_avg
+
         unit_price = 10000
         low = 0.98
         BTC_count = float(btc_count)
@@ -136,6 +138,8 @@ def run():
             await asyncio.sleep(0.5)
 
     async def ETH():
+        global BTC_count, BTC_avg, ETH_count, ETH_avg
+        
         unit_price = 10000
         low = 0.97
         
@@ -280,7 +284,7 @@ def run():
             f.write(str(BTC_count) + "\n")
             f.write(str(BTC_avg) + "\n")
             f.write(str(ETH_count) + "\n")
-            f.write(str(ETH_avg) + "\n")
+            f.write(str(ETH_avg))
 
     
 
@@ -302,6 +306,7 @@ def run():
     upbit = pyupbit.Upbit(key1, key2)
     error = 0
 
+    global BTC_count, BTC_avg, ETH_count, ETH_avg
     BTC_count = 0
     BTC_avg = 0
     ETH_count = 0
